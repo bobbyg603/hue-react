@@ -4,15 +4,16 @@ import { GroupsService } from '../../services/Groups/groups-service';
 import './Groups.css';
 
 const Groups: React.FC = () => {
-  // TODO BG DI
-  const apiClient = new ApiClient(fetch.bind(globalThis), 'hue.local', 'yB1olM3CtrQhQxtG1Xc5oT5l8QsIgbtP2PIiueLS');
-  const lightsService = new GroupsService(apiClient);
+  
   const [groups, setGroups] = useState({ groups: [] });
-
+  
   useEffect(() => {
-    lightsService.getGroups()
+    // TODO BG DI
+    const apiClient = new ApiClient(fetch.bind(globalThis), 'hue.local', 'yB1olM3CtrQhQxtG1Xc5oT5l8QsIgbtP2PIiueLS');
+    const groupsService = new GroupsService(apiClient);
+    groupsService.getGroups()
       .then((groups) => setGroups({ groups }));
-  });
+  }, []);
 
   return (
     <div className="Groups" data-testid="Groups">

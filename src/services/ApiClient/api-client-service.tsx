@@ -1,4 +1,4 @@
-import * as urlJoin from 'url-join';
+const urlJoin = require('url-join');
 
 export class ApiClient {
     constructor(
