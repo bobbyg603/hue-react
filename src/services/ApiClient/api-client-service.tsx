@@ -1,4 +1,4 @@
-const urlJoin = require('url-join');
+import urlJoin from 'url-join';
 
 export class ApiClient {
     constructor(
@@ -9,6 +9,15 @@ export class ApiClient {
     async get(route: string): Promise<any> {
         const url = this.getUrl(route);
         const response = await fetch(url);
+        return response.json();
+    }
+
+    async put(route: string, body: Object): Promise<any> {
+        const url = this.getUrl(route);
+        const response = await fetch(url, {
+            method: 'PUT',
+            body: JSON.stringify(body)
+        });
         return response.json();
     }
 

@@ -1,13 +1,13 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
-import Group from './Group';
+import Room from './Room';
 
-describe('<Group />', () => {
+describe('<Room />', () => {
   test('it should mount', () => {
-    render(<Group id="1"/>);
+    render(<Room id="1"/>);
     
-    const group = screen.getByTestId('Group');
+    const group = screen.getByTestId('Room');
 
     expect(group).toBeInTheDocument();
   });

@@ -1,7 +1,8 @@
 import { act, render, screen } from '@testing-library/react';
 import React from 'react';
+import { BrowserRouter } from 'react-router-dom';
+import { getLights } from '../../services/Lights/responses';
 import Lights from './Lights';
-import response from './response.json';
 
 describe('<Lights />', () => {
   let lightsService;
@@ -10,9 +11,15 @@ describe('<Lights />', () => {
     lightsService = {
       getLights: jest.fn()
     };
-    lightsService.getLights.mockResolvedValue(response);
+    lightsService.getLights.mockResolvedValue(getLights);
 
-    await act(async () => { render(<Lights lightsService={lightsService} />) });
+    await act(async () => { 
+      render(
+        <BrowserRouter>
+          <Lights lightsService={lightsService} />
+        </BrowserRouter>
+      );
+    });
   });
 
   test('it should mount', async () => {
@@ -26,8 +33,8 @@ describe('<Lights />', () => {
   });
 
   test('it should map response from LightsService to Bulbs', () => {
-    const lights = screen.getAllByTestId('Bulb');
+    const bulbs = screen.getAllByTestId('Bulb');
 
-    expect(lights.length).toEqual(Object.keys(response).length);
+    expect(bulbs.length).toEqual(Object.keys(getLights).length);
   });
 });

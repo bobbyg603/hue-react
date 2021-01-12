@@ -11,10 +11,10 @@ import { ApiClient } from '../services/ApiClient/api-client-service';
 import { GroupsService } from '../services/Groups/groups-service';
 import { LightsService } from '../services/Lights/lights-service';
 import './App.css';
-import Group from './Group/Group';
-import Groups from './Groups/Groups';
 import Light from './Light/Light';
 import Lights from './Lights/Lights';
+import Room from './Room/Room';
+import Rooms from './Rooms/Rooms';
 
 function useQuery() {
   return new URLSearchParams(useLocation().search);
@@ -43,13 +43,13 @@ function App() {
         </Navbar.Collapse>
       </Navbar>
       <Route exact path="/">
-        <Groups groupsService={groupsService} />
+        <Rooms groupsService={groupsService} />
       </Route>
       <Route path="/lights">
         <Lights lightsService={lightsService} />
       </Route>
-      <Route path="/group">
-        <Group id={query.get('id')} />
+      <Route path="/room">
+        <Room id={query.get('id') as string} />
       </Route>
       <Route path="/light">
         <Light id={query.get('id')} />

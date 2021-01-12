@@ -12,12 +12,13 @@ export interface LightsProps {
 
 const Lights: React.FC<LightsProps> = (props: LightsProps) => {
 
+  const [refresh, setRefresh] = useState(0);
   const [state, setState] = useState({ lights: [] });
 
   useEffect(() => {
     props.lightsService.getLights()
       .then((lights) => setState({ lights }));
-  }, [props.lightsService]);
+  }, [props.lightsService, refresh]);
 
   return (
     <div className="Lights" data-testid="Lights">
@@ -32,19 +33,26 @@ const Lights: React.FC<LightsProps> = (props: LightsProps) => {
             const y = xy ? xy[1] : 0;
             const brightness = light.state.bri;
 
+            const handleClick = async () => {
+              await props.lightsService.setOnOffValue(key, !on);
+              setRefresh(refresh + 1);
+            };
+
             return (
               <Col className="mt-4 text-center align-items-center" lg="2" key={key}>
-                <h5>
-                  {name}
-                </h5>
                 <Link className="nav-link" to={`/light?id=${key}`}>
+                  <h5>
+                    {name}
+                  </h5>
+                </Link>
+                <button onClick={() => handleClick()}>
                   <Bulb
                     on={on}
                     x={x}
                     y={y}
                     brightness={brightness}>
                   </Bulb>
-                </Link>
+                </button>
               </Col>
             )
           })

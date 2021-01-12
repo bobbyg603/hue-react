@@ -6,4 +6,10 @@ export class LightsService {
   async getLights(): Promise<any> {
     return this._apiClient.get('/lights');
   }
+
+  async setOnOffValue(id: string, on: boolean): Promise<any> {
+    return this._apiClient.put(`/lights/${id}/state`, {
+      on
+    });
+  }
 }

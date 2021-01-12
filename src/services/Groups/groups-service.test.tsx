@@ -1,15 +1,14 @@
 import { GroupsService } from './groups-service';
+import { getGroups } from './responses';
 
 let fakeApiClient;
-let fakeReturnValue;
 let groupsService: GroupsService;
 
 describe('getGroups', () => {
     beforeEach(() => {
-        fakeReturnValue = '❤️';
         fakeApiClient = { };
         fakeApiClient['get'] = jest.fn();
-        fakeApiClient.get.mockReturnValue(Promise.resolve(fakeReturnValue));
+        fakeApiClient.get.mockReturnValue(Promise.resolve(getGroups));
     
         groupsService = new GroupsService(fakeApiClient);
     });
@@ -20,9 +19,17 @@ describe('getGroups', () => {
         expect(fakeApiClient.get).toHaveBeenCalledWith('/groups');
     });
     
-    test('should return result of get', async () => {
+    test('should return result of get mapped to array of groups', async () => {
         const result = await groupsService.getGroups();
     
-        expect(result).toEqual(fakeReturnValue);
+        result.forEach((result, i) => {
+            const group = getGroups[result.id];
+            expect(result.id).toEqual(Object.keys(getGroups)[i]);
+            expect(result.name).toEqual(group.name);
+            expect(result.on).toEqual(group.action.on);
+            expect(result.brightness).toEqual(group.action.bri);
+            expect(result.x).toEqual(group.action.xy[0]);
+            expect(result.y).toEqual(group.action.xy[1]);
+        });
     });
 })
