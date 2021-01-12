@@ -1,11 +1,11 @@
 import React from 'react';
-import './Light.css';
+import './Group.css';
 
-export interface LightProps {
+export interface GroupProps {
   id: string | null;
 }
 
-const Light: React.FC<LightProps> = (props: LightProps) => {
+const Group: React.FC<GroupProps> = (props: GroupProps) => {
 
   if (!props.id) {
     return (<div className="Error" data-testid="Error">
@@ -15,10 +15,10 @@ const Light: React.FC<LightProps> = (props: LightProps) => {
   }
   
   return (
-    <div className="Light" data-testid="Light">
-      Light Component {props.id}
+    <div className="Group" data-testid="Group">
+      Group Component {props.id}
     </div>
   );
 };
 
-export default Light;
+export default Group;

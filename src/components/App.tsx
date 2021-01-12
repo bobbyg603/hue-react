@@ -1,21 +1,33 @@
-import logo from '../logo.svg';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
-import './App.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import {
-  BrowserRouter as Router,
+  Link,
   Route,
-  Link
+  useLocation
 } from "react-router-dom";
-
-import Home from './Home/Home';
-import Lights from './Lights/Lights';
+import logo from '../logo.svg';
+import { ApiClient } from '../services/ApiClient/api-client-service';
+import { GroupsService } from '../services/Groups/groups-service';
+import { LightsService } from '../services/Lights/lights-service';
+import './App.css';
+import Group from './Group/Group';
 import Groups from './Groups/Groups';
+import Light from './Light/Light';
+import Lights from './Lights/Lights';
+
+function useQuery() {
+  return new URLSearchParams(useLocation().search);
+}
 
 function App() {
+  const apiClient = new ApiClient('hue.local', 'yB1olM3CtrQhQxtG1Xc5oT5l8QsIgbtP2PIiueLS');
+  const groupsService = new GroupsService(apiClient);
+  const lightsService = new LightsService(apiClient);
+  const query = useQuery();
+
   return (
-    <Router>
+    <div>
       <Navbar bg="light" expand="lg">
         <Navbar.Brand>
           <Link className="nav-link" to="/">
@@ -27,20 +39,22 @@ function App() {
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto">
             <Link className="nav-link" to="/lights">Lights</Link>
-            <Link className="nav-link" to="/groups">Groups</Link>
           </Nav>
         </Navbar.Collapse>
       </Navbar>
       <Route exact path="/">
-        <Home />
+        <Groups groupsService={groupsService} />
       </Route>
       <Route path="/lights">
-        <Lights />
+        <Lights lightsService={lightsService} />
       </Route>
-      <Route path="/groups">
-        <Groups />
+      <Route path="/group">
+        <Group id={query.get('id')} />
       </Route>
-    </Router>
+      <Route path="/light">
+        <Light id={query.get('id')} />
+      </Route>
+    </div>
   );
 }
 

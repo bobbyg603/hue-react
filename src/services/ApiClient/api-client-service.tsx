@@ -2,14 +2,13 @@ const urlJoin = require('url-join');
 
 export class ApiClient {
     constructor(
-        private _fetch: any,
         private _host: string,
         private _username: string
     ) { }
 
     async get(route: string): Promise<any> {
         const url = this.getUrl(route);
-        const response = await this._fetch(url);
+        const response = await fetch(url);
         return response.json();
     }
 

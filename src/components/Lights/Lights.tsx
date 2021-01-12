@@ -1,52 +1,54 @@
 import React, { useEffect, useState } from 'react';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
-import { ApiClient } from '../../services/ApiClient/api-client-service';
+import { Link } from 'react-router-dom';
 import { LightsService } from '../../services/Lights/lights-service';
-import Light from '../Light/Light';
+import Bulb from '../Bulb/Bulb';
 import './Lights.css';
 
-const Lights: React.FC = () => {
-  
+export interface LightsProps {
+  lightsService: LightsService;
+}
+
+const Lights: React.FC<LightsProps> = (props: LightsProps) => {
+
   const [state, setState] = useState({ lights: [] });
-  
+
   useEffect(() => {
-    // TODO BG DI
-    const apiClient = new ApiClient(fetch.bind(globalThis), 'hue.local', 'yB1olM3CtrQhQxtG1Xc5oT5l8QsIgbtP2PIiueLS');
-    const lightsService = new LightsService(apiClient);
-    lightsService.getLights()
+    props.lightsService.getLights()
       .then((lights) => setState({ lights }));
-  }, []);
+  }, [props.lightsService]);
 
   return (
     <div className="Lights" data-testid="Lights">
       <Row className="mx-0">
-      {
-        // TODO BG put a console log in the map function, why is it rendering so many times?
-        Object.keys(state.lights).map(key => {
-          const light = state.lights[key];
-          const name = light.name;
-          const on = light.state.on;
-          const xy = light.state.xy;
-          const x = xy ? xy[0] : 0;
-          const y = xy ? xy[1] : 0;
-          const brightness = light.state.bri;
+        {
+          Object.keys(state.lights).map(key => {
+            const light = state.lights[key];
+            const name = light.name;
+            const on = light.state.on;
+            const xy = light.state.xy;
+            const x = xy ? xy[0] : 0;
+            const y = xy ? xy[1] : 0;
+            const brightness = light.state.bri;
 
-          return (
-            <Col className="mt-4 text-center align-items-center" lg="2" key={key}>
-              <h5>
-                {name}
-              </h5>
-              <Light 
-                on={on} 
-                x={x}
-                y={y}
-                brightness={brightness}>
-              </Light>
-            </Col>
-          )
-        })
-      }      
+            return (
+              <Col className="mt-4 text-center align-items-center" lg="2" key={key}>
+                <h5>
+                  {name}
+                </h5>
+                <Link className="nav-link" to={`/light?id=${key}`}>
+                  <Bulb
+                    on={on}
+                    x={x}
+                    y={y}
+                    brightness={brightness}>
+                  </Bulb>
+                </Link>
+              </Col>
+            )
+          })
+        }
       </Row>
     </div>
   );
