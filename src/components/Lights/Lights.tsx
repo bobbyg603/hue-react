@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import { LightsService } from '../../services/Lights/lights-service';
 import Bulb from '../Bulb/Bulb';
 import './Lights.css';
+import { RouteableBulb as Light } from '../Bulb/Bulb';
 
 export interface LightsProps {
   lightsService: LightsService;
@@ -12,8 +13,9 @@ export interface LightsProps {
 
 const Lights: React.FC<LightsProps> = (props: LightsProps) => {
 
+  const lights = [] as Array<Light>;
   const [refresh, setRefresh] = useState(0);
-  const [state, setState] = useState({ lights: [] });
+  const [state, setState] = useState({ lights });
 
   useEffect(() => {
     props.lightsService.getLights()
@@ -24,33 +26,25 @@ const Lights: React.FC<LightsProps> = (props: LightsProps) => {
     <div className="Lights" data-testid="Lights">
       <Row className="mx-0">
         {
-          Object.keys(state.lights).map(key => {
-            const light = state.lights[key];
-            const name = light.name;
-            const on = light.state.on;
-            const xy = light.state.xy;
-            const x = xy ? xy[0] : 0;
-            const y = xy ? xy[1] : 0;
-            const brightness = light.state.bri;
-
+          state.lights.map(light => {
             const handleClick = async () => {
-              await props.lightsService.setOnOffValue(key, !on);
+              await props.lightsService.setOnOffValue(light.id, !light.on);
               setRefresh(refresh + 1);
             };
 
             return (
-              <Col className="mt-4 text-center align-items-center" lg="2" key={key}>
-                <Link className="nav-link" to={`/light?id=${key}`}>
+              <Col className="mt-4 text-center align-items-center" lg="2" key={light.id}>
+                <Link className="nav-link" to={`/light?id=${light.id}`}>
                   <h5>
-                    {name}
+                    {light.name}
                   </h5>
                 </Link>
                 <button onClick={() => handleClick()}>
                   <Bulb
-                    on={on}
-                    x={x}
-                    y={y}
-                    brightness={brightness}>
+                    on={light.on}
+                    x={light.x}
+                    y={light.y}
+                    brightness={light.brightness}>
                   </Bulb>
                 </button>
               </Col>

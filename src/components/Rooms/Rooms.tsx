@@ -2,20 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { Col, Row } from 'react-bootstrap';
 import { Link } from "react-router-dom";
 import { GroupsService } from '../../services/Groups/groups-service';
-import Bulb from '../Bulb/Bulb';
+import Bulb, { RouteableBulb as Group } from '../Bulb/Bulb';
 import './Rooms.css';
 
 export interface RoomsProps {
   groupsService: GroupsService;
-}
-
-export interface Group {
-  id: string;
-  name: string;
-  on: boolean;
-  x: number;
-  y: number;
-  brightness: number;
 }
 
 const Rooms: React.FC<RoomsProps> = (props: RoomsProps) => {

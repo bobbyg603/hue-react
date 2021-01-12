@@ -1,4 +1,4 @@
-import { Group } from "../../components/Rooms/Rooms";
+import { RouteableBulb as Group } from "../../components/Bulb/Bulb";
 import { ApiClient } from "../ApiClient/api-client-service";
 
 export class GroupsService {

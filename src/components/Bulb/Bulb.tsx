@@ -7,6 +7,11 @@ export interface BulbProps {
   brightness: number;
 }
 
+export interface RouteableBulb extends BulbProps {
+  id: string;
+  name: string;
+}
+
 const Bulb: React.FC<BulbProps> = (props: BulbProps) => {
 
   const { r, g, b } = xyBriToRgb(props.x, props.y, props.brightness);
