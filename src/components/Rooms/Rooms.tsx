@@ -38,7 +38,7 @@ const Rooms: React.FC<RoomsProps> = (props: RoomsProps) => {
                     {group.name}
                   </h5>
                 </Link>
-                <button onClick={() => handleClick()}>
+                <button onClick={handleClick}>
                   <Bulb
                     on={group.on}
                     x={group.x}

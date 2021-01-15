@@ -39,7 +39,7 @@ const Lights: React.FC<LightsProps> = (props: LightsProps) => {
                     {light.name}
                   </h5>
                 </Link>
-                <button onClick={() => handleClick()}>
+                <button onClick={handleClick}>
                   <Bulb
                     on={light.on}
                     x={light.x}
