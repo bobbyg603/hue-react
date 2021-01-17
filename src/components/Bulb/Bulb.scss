@@ -1,6 +1,5 @@
 .Bulb {
     height: fit-content;
-    width: 100%;
     border-radius: 2px;
     background: transparent;
     color: #333;
@@ -11,19 +10,10 @@
     flex-direction: column;
 }
 
-#glow {  
-    border-radius: 50px;
-    margin-top: -56px;
-    width: 76px;
-    height: 76px;
-    position: absolute;
-    transition: all 0.5s ease-in-out;
-}
-
 #bulb {
     transition: all 0.5s ease-in-out;
     cursor: pointer;
-    position: relative;
+    display: block;
     z-index: 2;
 }
 
@@ -35,7 +25,22 @@
     opacity: 0;
 }
 
+#glow {  
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    position: relative;
+    transition: all 0.5s ease-in-out;
+}
+
 #base {
     fill: #eee;
     margin-top: 5px;
+    display: block;
+}
+
+svg {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
 }

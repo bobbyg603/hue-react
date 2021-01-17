@@ -41,9 +41,8 @@ const Rooms: React.FC<RoomsProps> = (props: RoomsProps) => {
                 <button onClick={handleClick}>
                   <Bulb
                     on={group.on}
-                    x={group.x}
-                    y={group.y}
-                    brightness={group.brightness}>
+                    brightness={group.brightness}
+                    color={group.color}>
                   </Bulb>
                 </button>
               </Col>

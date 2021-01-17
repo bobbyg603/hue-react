@@ -1,5 +1,6 @@
 import { RouteableBulb as Group } from "../../components/Bulb/Bulb";
 import { ApiClient } from "../ApiClient/api-client-service";
+import ColorConverter from 'cie-rgb-color-converter';
 
 export class GroupsService {
   constructor(private _apiClient: ApiClient) { }
@@ -16,13 +17,13 @@ export class GroupsService {
           const x = xy ? xy[0] : 0;
           const y = xy ? xy[1] : 0;
           const brightness = group.action.bri;
+          const color = ColorConverter.xyBriToRgb(x, y, brightness);
           return {
             id,
             name,
             on,
-            x,
-            y,
-            brightness
+            brightness,
+            color
           } as Group;
         });
       });

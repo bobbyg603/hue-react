@@ -1,8 +1,28 @@
 import { ApiClient } from "../ApiClient/api-client-service";
-import { RouteableBulb as Light } from '../../components/Bulb/Bulb';
+import { Color, RouteableBulb as Light } from '../../components/Bulb/Bulb';
+import ColorConverter from 'cie-rgb-color-converter';
 
 export class LightsService {
   constructor(private _apiClient: ApiClient) { }
+
+  async getLightById(id: string): Promise<Light> {
+    return this._apiClient.get(`/lights/${id}`)
+      .then((response: GetLightResponse) => {
+        const name = response.name;
+        const on = response.state.on;
+        const x = response.state.xy[0];
+        const y = response.state.xy[1];
+        const brightness = response.state.bri;
+        const color = ColorConverter.xyBriToRgb(x, y, brightness);
+        return {
+          id,
+          name,
+          on,
+          color,
+          brightness
+        } as Light;
+      });
+  }
 
   async getLights(): Promise<Array<Light>> {
     return this._apiClient.get('/lights')
@@ -16,16 +36,22 @@ export class LightsService {
           const x = xy ? xy[0] : 0;
           const y = xy ? xy[1] : 0;
           const brightness = group.state.bri;
+          const color = ColorConverter.xyBriToRgb(x, y, brightness);
           return {
             id,
             name,
             on,
-            x,
-            y,
-            brightness
+            brightness,
+            color
           } as Light;
         });
       });
+  }
+
+  async setName(id: string, name: string): Promise<any> {
+    return this._apiClient.put(`/lights/${id}`, {
+      name
+    });
   }
 
   async setOnOffValue(id: string, on: boolean): Promise<any> {
@@ -33,14 +59,27 @@ export class LightsService {
       on
     });
   }
-}
 
+  async setBrightness(id: string, brightness: number): Promise<any> {
+    const bri = brightness;
+    return this._apiClient.put(`/lights/${id}/state`, {
+      bri
+    });
+  }
+
+  async setColor(id: string, color: Color): Promise<any> {
+    const { x, y } = ColorConverter.rgbToXy(color.r, color.g, color.b);
+    return this._apiClient.put(`/lights/${id}/state`, {
+      xy: [x,y]
+    });
+  }
+}
 
 interface GetLightsResponse {
-  [id: string]: LightResponse;
+  [id: string]: GetLightResponse;
 }
 
-interface LightResponse {
+interface GetLightResponse {
   state: State;
   swupdate: { state: string, lastinstall: string };
   type: string;

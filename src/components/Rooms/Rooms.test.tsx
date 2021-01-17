@@ -1,7 +1,7 @@
 import { act, render, screen } from '@testing-library/react';
 import React from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
-import { RouteableBulb as Group } from '../Bulb/Bulb';
+import { RouteableItem as Group } from '../Bulb/Bulb';
 import Rooms from './Rooms';
 
 describe('<Rooms />', () => {

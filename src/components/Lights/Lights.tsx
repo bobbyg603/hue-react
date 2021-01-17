@@ -42,9 +42,8 @@ const Lights: React.FC<LightsProps> = (props: LightsProps) => {
                 <button onClick={handleClick}>
                   <Bulb
                     on={light.on}
-                    x={light.x}
-                    y={light.y}
-                    brightness={light.brightness}>
+                    brightness={light.brightness}
+                    color={light.color}>
                   </Bulb>
                 </button>
               </Col>

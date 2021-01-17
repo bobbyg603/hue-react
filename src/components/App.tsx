@@ -52,7 +52,7 @@ function App() {
         <Room id={query.get('id') as string} />
       </Route>
       <Route path="/light">
-        <Light id={query.get('id')} />
+        <Light id={query.get('id')} lightsService={lightsService} />
       </Route>
     </div>
   );

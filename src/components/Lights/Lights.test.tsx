@@ -1,9 +1,8 @@
 import { act, render, screen } from '@testing-library/react';
 import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
-import { getLights } from '../../services/Lights/responses';
-import Lights from './Lights';
 import { RouteableBulb as Light } from '../Bulb/Bulb';
+import Lights from './Lights';
 
 describe('<Lights />', () => {
   let lightsService;
@@ -49,16 +48,22 @@ function createFakeLights(): Array<Light> {
       name: 'Living Room 1',
       brightness: 254,
       on: true,
-      x: 0.5,
-      y: 0.5
+      color: {
+        r: 128,
+        g: 128,
+        b: 128
+      }
     },
     {
       id: '2',
       name: 'Living Room 2',
       brightness: 0,
       on: false,
-      x: 0.5,
-      y: 0.5
+      color: {
+        r: 0,
+        g: 255,
+        b: 0
+      }
     }
   ];
 }
