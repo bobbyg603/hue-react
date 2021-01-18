@@ -1,0 +1,11 @@
+.Home {
+    word-wrap: break-word;
+}
+
+.Home :nth-child(even).row {
+    background-color: #ffffff;
+}
+
+.Home :nth-child(odd).row {
+    background-color: #f8f9fa;
+}

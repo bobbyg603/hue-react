@@ -47,7 +47,6 @@ export class GroupsService {
     const y = xy ? xy[1] : 0;
     const brightness = response.action.bri;
     const color = convertXyBriToRgb(x, y, brightness);
-    // const color = ColorConverter.xyBriToRgb(x, y, brightness);
     const state = {
       on,
       brightness,

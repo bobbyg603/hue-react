@@ -44,24 +44,26 @@ const Groups: React.FC<GroupsProps> = (props: GroupsProps) => {
 
   return (
     <div className="Rooms" data-testid="Rooms">
-      <Row className="mx-0">
+      <Row className="mx-0 pt-2">
         {
           groups.map(group => {
             return (
-              <Col className="mt-4 text-center align-items-center" lg="2" key={group.id}>
-                <Link className="nav-link" to={`/groups?id=${group.id}`}>
-                  <h5>
-                    {group.name}
-                  </h5>
-                </Link>
-                <Bulb
-                  id={group.id}
-                  name={group.name}
-                  state={group.state}
-                  size={LightSize.medium}
-                  onNameChange={(name) => handleNameChange(group.id, name)}
-                  onStateChange={(state) => handleStateChange(group.id, state)}>
-                </Bulb>
+              <Col className="my-2 px-2 text-center align-items-center" lg="2" key={group.id}>
+                <div className="px-2 bg-light rounded">
+                  <Link className="nav-link" to={`/groups?id=${group.id}`}>
+                    <h5>
+                      {group.name}
+                    </h5>
+                  </Link>
+                  <Bulb
+                    id={group.id}
+                    name={group.name}
+                    state={group.state}
+                    size={LightSize.medium}
+                    onNameChange={(name) => handleNameChange(group.id, name)}
+                    onStateChange={(state) => handleStateChange(group.id, state)}>
+                  </Bulb>
+                </div>
               </Col>
             );
           })

@@ -45,24 +45,26 @@ const Lights: React.FC<LightsProps> = (props: LightsProps) => {
 
   return (
     <div className="Lights" data-testid="Lights">
-      <Row className="mx-0">
+      <Row className="mx-0 pt-2">
         {
           lights.map(light => {
             return (
-              <Col className="mt-4 text-center align-items-center" lg="2" key={light.id}>
-                <Link className="nav-link" to={`/lights?id=${light.id}`}>
-                  <h5>
-                    {light.name}
-                  </h5>
-                </Link>
-                <Bulb
-                  id={light.id}
-                  name={light.name}
-                  state={light.state}
-                  size={LightSize.medium}
-                  onNameChange={(name) => handleNameChange(light.id, name)}
-                  onStateChange={(state) => handleStateChange(light.id, state)}>
-                </Bulb>
+              <Col className="my-2 px-2 text-center align-items-center" lg="2" key={light.id}>
+                <div className="px-2 bg-light rounded">
+                  <Link className="nav-link" to={`/lights?id=${light.id}`}>
+                    <h5>
+                      {light.name}
+                    </h5>
+                  </Link>
+                  <Bulb
+                    id={light.id}
+                    name={light.name}
+                    state={light.state}
+                    size={LightSize.medium}
+                    onNameChange={(name) => handleNameChange(light.id, name)}
+                    onStateChange={(state) => handleStateChange(light.id, state)}>
+                  </Bulb>
+                </div>
               </Col>
             )
           })
