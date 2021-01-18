@@ -33,16 +33,15 @@ export interface BulbProps extends Light {
 }
 
 const Bulb: React.FC<BulbProps> = (props: BulbProps) => {
-
-  const { onNameChange: onNameUpdate, onStateChange: onStateUpdate } = props;
+  const { onNameChange, onStateChange } = props;
 
   const handleNameChange = (e: ChangeEvent<HTMLInputElement>) => {
-    onNameUpdate(e.target.value);
+    onNameChange(e.target.value);
   };
 
   const handleBrightnessChange = async (e: ChangeEvent<HTMLInputElement>) => {
     const brightness = parseInt(e.target.value);
-    onStateUpdate({
+    onStateChange({
       ...props.state,
       brightness
     });
@@ -50,7 +49,7 @@ const Bulb: React.FC<BulbProps> = (props: BulbProps) => {
 
   const handleColorChange = (e: ChangeEvent<HTMLInputElement>) => {
     const color = convertHexToRgb(e.target.value);
-    onStateUpdate({
+    onStateChange({
       ...props.state,
       color
     });
@@ -58,7 +57,7 @@ const Bulb: React.FC<BulbProps> = (props: BulbProps) => {
 
   const handleOnOffChange = () => {
     const on = !props.state.on;
-    onStateUpdate({
+    onStateChange({
       ...props.state,
       on
     });
@@ -70,13 +69,13 @@ const Bulb: React.FC<BulbProps> = (props: BulbProps) => {
 
   return (
     <div className="Bulb" data-testid="Bulb">
-      <div onClick={handleOnOffChange}>
+      <div id="toggleOnOff" onClick={handleOnOffChange}>
         {bulb}
       </div>
       <form>
         <input className="mt-2 form-control" type="text" name="name" placeholder={props.name} onChange={handleNameChange}></input>
         <input className="mt-2 form-control" type="color" name="color" defaultValue={color} onChange={handleColorChange}></input>
-        <input className="mt-2 p-0 form-control" type="range" min="0" max="254" defaultValue={props.state.brightness} onChange={handleBrightnessChange}></input>
+        <input className="mt-2 p-0 form-control" type="range" min="0" max="254" name="brightness" defaultValue={props.state.brightness} onChange={handleBrightnessChange}></input>
       </form>
     </div>
   );
