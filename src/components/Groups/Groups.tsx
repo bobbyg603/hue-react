@@ -1,11 +1,10 @@
+import AwesomeDebouncePromise from 'awesome-debounce-promise';
 import React, { useEffect, useState } from 'react';
 import { Col, Row } from 'react-bootstrap';
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom';
 import { GroupsService } from '../../services/Groups/groups-service';
-import './Groups.css';
 import Bulb, { Light as Group, LightSize, LightState } from '../Bulb/Bulb';
-import delay from 'delay';
-import AwesomeDebouncePromise from 'awesome-debounce-promise';
+import './Groups.css';
 
 export interface GroupsProps {
   id?: string;
@@ -13,9 +12,8 @@ export interface GroupsProps {
 }
 
 const Groups: React.FC<GroupsProps> = (props: GroupsProps) => {
-
-  const [refresh, setRefresh] = useState(0);
   const [groups, setGroups] = useState([] as Array<Group>);
+  const [refresh, setRefresh] = useState(0);
 
   const debouncedSetName = AwesomeDebouncePromise((id, name) => props.groupsService.setName(id, name), 100);
   const debouncedSetState = AwesomeDebouncePromise((id, state) => props.groupsService.setState(id, state), 250);

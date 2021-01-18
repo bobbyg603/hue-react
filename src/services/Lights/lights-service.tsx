@@ -1,5 +1,5 @@
 import { Light, LightState } from '../../components/Bulb/Bulb';
-import { ApiClient } from "../ApiClient/api-client-service";
+import { ApiClient } from '../ApiClient/api-client-service';
 import { convertRgbToXy, convertXyBriToRgb } from '../Color/color-service';
 
 export class LightsService {

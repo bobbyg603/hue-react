@@ -1,6 +1,6 @@
-import { ApiClient } from "../ApiClient/api-client-service";
+import { ApiClient } from '../ApiClient/api-client-service';
 import { Light as Group, LightState } from '../../components/Bulb/Bulb';
-import { convertRgbToXy, convertXyBriToRgb } from "../Color/color-service";
+import { convertRgbToXy, convertXyBriToRgb } from '../Color/color-service';
 
 export class GroupsService {
   constructor(private _apiClient: ApiClient) { }

@@ -13,9 +13,8 @@ export interface LightsProps {
 }
 
 const Lights: React.FC<LightsProps> = (props: LightsProps) => {
-
-  const [refresh, setRefresh] = useState(0);
   const [lights, setLights] = useState([] as Array<Light>);
+  const [refresh, setRefresh] = useState(0);
 
   const debouncedSetName = AwesomeDebouncePromise((id, name) => props.lightsService.setName(id, name), 100);
   const debouncedSetState = AwesomeDebouncePromise((id, state) => props.lightsService.setState(id, state), 100);
