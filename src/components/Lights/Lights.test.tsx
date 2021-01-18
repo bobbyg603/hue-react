@@ -1,6 +1,6 @@
 import { act, render, screen } from '@testing-library/react';
 import React from 'react';
-import { BrowserRouter } from 'react-router-dom';
+import { BrowserRouter } from '../Groups/node_modules/react-router-dom';
 import { RouteableBulb as Light } from '../Bulb/Bulb';
 import Lights from './Lights';
 

@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import React from 'react';
-import Bulb from './Bulb';
+import Light from './Bulb';
 
 describe('<Bulb />', () => {
   const on = true;
@@ -39,5 +39,13 @@ describe('<Bulb />', () => {
     const glow = dom.container.querySelector('#glow');
 
     expect(glow).toBeFalsy();
+  });
+
+  test('it should mount', () => {
+    render(<Light id="1"/>);
+    
+    const light = screen.getByTestId('Light');
+
+    expect(light).toBeInTheDocument();
   });
 });

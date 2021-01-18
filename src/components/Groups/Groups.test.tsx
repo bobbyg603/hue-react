@@ -2,7 +2,7 @@ import { act, render, screen } from '@testing-library/react';
 import React from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { RouteableItem as Group } from '../Bulb/Bulb';
-import Rooms from './Rooms';
+import Groups from './Groups';
 
 describe('<Rooms />', () => {
   let groupsService;
@@ -18,7 +18,7 @@ describe('<Rooms />', () => {
     await act(async () => { 
       render(
         <Router>
-          <Rooms groupsService={groupsService} />
+          <Groups groupsService={groupsService} />
         </Router>
       );
     });

@@ -1,51 +1,69 @@
+import AwesomeDebouncePromise from 'awesome-debounce-promise';
 import React, { useEffect, useState } from 'react';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import { Link } from 'react-router-dom';
 import { LightsService } from '../../services/Lights/lights-service';
-import Bulb from '../Bulb/Bulb';
+import Bulb, { Light, LightSize, LightState } from '../Bulb/Bulb';
 import './Lights.css';
-import { RouteableBulb as Light } from '../Bulb/Bulb';
 
 export interface LightsProps {
+  id?: string;
   lightsService: LightsService;
 }
 
 const Lights: React.FC<LightsProps> = (props: LightsProps) => {
 
-  const lights = [] as Array<Light>;
   const [refresh, setRefresh] = useState(0);
-  const [state, setState] = useState({ lights });
+  const [lights, setLights] = useState([] as Array<Light>);
+
+  const debouncedSetName = AwesomeDebouncePromise((id, name) => props.lightsService.setName(id, name), 100);
+  const debouncedSetState = AwesomeDebouncePromise((id, state) => props.lightsService.setState(id, state), 100);
 
   useEffect(() => {
-    props.lightsService.getLights()
-      .then((lights) => setState({ lights }));
-  }, [props.lightsService, refresh]);
+    if (!props.id) {
+      props.lightsService
+        .getLights()
+        .then(setLights);
+      return;
+    }
+
+    props.lightsService
+      .getLightById(props.id)
+      .then((light) => ([light]))
+      .then(setLights);
+  }, [props.id, props.lightsService, refresh]);
+
+  const handleNameChange = async (id: string, name: string) => {
+    await debouncedSetName(id, name);
+    setRefresh(refresh + 1);
+  };
+
+  const handleStateChange = async (id: string, state: LightState) => {
+    await debouncedSetState(id, state);
+    setRefresh(refresh + 1);
+  };
 
   return (
     <div className="Lights" data-testid="Lights">
       <Row className="mx-0">
         {
-          state.lights.map(light => {
-            const handleClick = async () => {
-              await props.lightsService.setOnOffValue(light.id, !light.on);
-              setRefresh(refresh + 1);
-            };
-
+          lights.map(light => {
             return (
               <Col className="mt-4 text-center align-items-center" lg="2" key={light.id}>
-                <Link className="nav-link" to={`/light?id=${light.id}`}>
+                <Link className="nav-link" to={`/lights?id=${light.id}`}>
                   <h5>
                     {light.name}
                   </h5>
                 </Link>
-                <button onClick={handleClick}>
-                  <Bulb
-                    on={light.on}
-                    brightness={light.brightness}
-                    color={light.color}>
-                  </Bulb>
-                </button>
+                <Bulb
+                  id={light.id}
+                  name={light.name}
+                  state={light.state}
+                  size={LightSize.medium}
+                  onNameChange={(name) => handleNameChange(light.id, name)}
+                  onStateChange={(state) => handleStateChange(light.id, state)}>
+                </Bulb>
               </Col>
             )
           })

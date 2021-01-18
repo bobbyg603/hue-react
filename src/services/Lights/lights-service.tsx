@@ -1,6 +1,6 @@
+import { Light, LightState } from '../../components/Bulb/Bulb';
 import { ApiClient } from "../ApiClient/api-client-service";
-import { Color, RouteableBulb as Light } from '../../components/Bulb/Bulb';
-import ColorConverter from 'cie-rgb-color-converter';
+import { convertRgbToXy, convertXyBriToRgb } from '../Color/color-service';
 
 export class LightsService {
   constructor(private _apiClient: ApiClient) { }
@@ -8,19 +8,7 @@ export class LightsService {
   async getLightById(id: string): Promise<Light> {
     return this._apiClient.get(`/lights/${id}`)
       .then((response: GetLightResponse) => {
-        const name = response.name;
-        const on = response.state.on;
-        const x = response.state.xy[0];
-        const y = response.state.xy[1];
-        const brightness = response.state.bri;
-        const color = ColorConverter.xyBriToRgb(x, y, brightness);
-        return {
-          id,
-          name,
-          on,
-          color,
-          brightness
-        } as Light;
+        return this.createLightFromLightResponse(id, response);
       });
   }
 
@@ -28,22 +16,7 @@ export class LightsService {
     return this._apiClient.get('/lights')
       .then((response: GetLightsResponse) => {
         return Object.keys(response).map(key => {
-          const id = key;
-          const group = response[id];
-          const name = group.name;
-          const on = group.state.on;
-          const xy = group.state.xy;
-          const x = xy ? xy[0] : 0;
-          const y = xy ? xy[1] : 0;
-          const brightness = group.state.bri;
-          const color = ColorConverter.xyBriToRgb(x, y, brightness);
-          return {
-            id,
-            name,
-            on,
-            brightness,
-            color
-          } as Light;
+          return this.createLightFromLightResponse(key, response[key]);
         });
       });
   }
@@ -53,25 +26,36 @@ export class LightsService {
       name
     });
   }
-
-  async setOnOffValue(id: string, on: boolean): Promise<any> {
+  
+  async setState(id: string, state: LightState): Promise<any> {
+    const on = state.on;
+    const bri = state.brightness;
+    const { x, y } = convertRgbToXy(state.color.r, state.color.g, state.color.b);
+    const xy = [x, y];
     return this._apiClient.put(`/lights/${id}/state`, {
-      on
+      on,
+      bri,
+      xy
     });
   }
 
-  async setBrightness(id: string, brightness: number): Promise<any> {
-    const bri = brightness;
-    return this._apiClient.put(`/lights/${id}/state`, {
-      bri
-    });
-  }
-
-  async setColor(id: string, color: Color): Promise<any> {
-    const { x, y } = ColorConverter.rgbToXy(color.r, color.g, color.b);
-    return this._apiClient.put(`/lights/${id}/state`, {
-      xy: [x,y]
-    });
+  private createLightFromLightResponse(id: string, response: GetLightResponse): Light {
+    const name = response.name;
+    const on = response.state.on;
+    const x = response.state.xy[0];
+    const y = response.state.xy[1];
+    const brightness = response.state.bri;
+    const color = convertXyBriToRgb(x, y, brightness);
+    const state = {
+      on,
+      color,
+      brightness
+    };
+    return {
+      id,
+      name,
+      state
+    } as Light;
   }
 }
 
