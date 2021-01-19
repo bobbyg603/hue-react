@@ -24,8 +24,8 @@ const Home: React.FC<HomeProps> = (props: HomeProps) => {
         Object.keys(config).map(key => {
           return (
             <Row className="mx-4" key={key}>
-              <Col lg="2" sm="12"><b>{key}</b></Col>
-              <Col lg="10" sm="12">{JSON.stringify(config[key])}</Col>
+              <Col className="py-1" lg="2" sm="12"><b>{key}</b></Col>
+              <Col className="py-1" lg="10" sm="12">{JSON.stringify(config[key])}</Col>
             </Row>
           );
         })
