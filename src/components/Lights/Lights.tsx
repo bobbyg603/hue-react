@@ -1,9 +1,9 @@
-import AwesomeDebouncePromise from 'awesome-debounce-promise';
 import React, { useEffect, useState } from 'react';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import { Link } from 'react-router-dom';
 import { LightsService } from '../../services/Lights/lights-service';
+import { debounce } from '../../utils/debounce';
 import Bulb, { Light, LightSize, LightState } from '../Bulb/Bulb';
 import './Lights.css';
 
@@ -16,8 +16,8 @@ const Lights: React.FC<LightsProps> = (props: LightsProps) => {
   const [lights, setLights] = useState([] as Array<Light>);
   const [refresh, setRefresh] = useState(0);
 
-  const debouncedSetName = AwesomeDebouncePromise((id, name) => props.lightsService.setName(id, name), 100);
-  const debouncedSetState = AwesomeDebouncePromise((id, state) => props.lightsService.setState(id, state), 100);
+  const debouncedSetName = debounce((id, name) => props.lightsService.setName(id, name), 100);
+  const debouncedSetState = debounce((id, state) => props.lightsService.setState(id, state), 100);
 
   useEffect(() => {
     if (!props.id) {
