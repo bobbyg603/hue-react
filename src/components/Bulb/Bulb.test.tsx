@@ -24,7 +24,7 @@ describe('<Bulb />', () => {
     };  
   });
 
-  it('should should mount', () => {
+  it('should mount', () => {
     render(<Bulb {...props} />);
     
     const bulb = screen.getByTestId('Bulb');

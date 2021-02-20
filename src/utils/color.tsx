@@ -1,4 +1,4 @@
-import { LightColor } from '../../components/Bulb/Bulb';
+import { LightColor } from '../components/Bulb/Bulb';
 import rgbHex from 'rgb-hex';
 import hexRgb from 'hex-rgb';
 import ColorConverter from 'cie-rgb-color-converter';

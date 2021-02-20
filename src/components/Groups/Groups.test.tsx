@@ -56,7 +56,7 @@ describe('<Groups />', () => {
     (util.debounce as any) = jest.fn().mockImplementation((func, wait) => func);
   });
 
-  it('it should mount', async () => {
+  it('should mount', async () => {
     await act(async () => {
       render(
         <Router>
@@ -81,11 +81,11 @@ describe('<Groups />', () => {
       });
     });
 
-    it('it should call getGroups from GroupsService', () => {
+    it('should call getGroups from GroupsService', () => {
       expect(groupsService.getGroups).toHaveBeenCalled();
     });
 
-    it('it should map response from getGroups to Bulbs', () => {
+    it('should map response from getGroups to Bulbs', () => {
       const bulbs = screen.getAllByTestId('Bulb');
 
       expect(bulbs.length).toEqual(fakeGroups.length);

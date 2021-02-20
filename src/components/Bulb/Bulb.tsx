@@ -1,5 +1,5 @@
 import React, { ChangeEvent } from 'react';
-import { convertHexToRgb, convertRgbToHex } from '../../services/Color/color-service';
+import { convertHexToRgb, convertRgbToHex } from '../../utils/color';
 import './Bulb.scss';
 
 export interface Light {

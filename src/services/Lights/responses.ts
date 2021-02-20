@@ -1,3 +1,74 @@
+export const getLightById = {
+  "state": {
+    "on": true,
+    "bri": 254,
+    "hue": 8599,
+    "sat": 119,
+    "effect": "none",
+    "xy": [
+      0.4441,
+      0.4063
+    ],
+    "ct": 343,
+    "alert": "select",
+    "colormode": "xy",
+    "mode": "homeautomation",
+    "reachable": true
+  },
+  "swupdate": {
+    "state": "noupdates",
+    "lastinstall": "2021-01-27T19:17:28"
+  },
+  "type": "Extended color light",
+  "name": "Living Room Color 1",
+  "modelid": "LCA003",
+  "manufacturername": "Signify Netherlands B.V.",
+  "productname": "Hue color Lamp",
+  "capabilities": {
+    "certified": true,
+    "control": {
+      "mindimlevel": 200,
+      "maxlumen": 800,
+      "colorgamuttype": "C",
+      "colorgamut": [
+        [
+          0.6915,
+          0.3083
+        ],
+        [
+          0.17,
+          0.7
+        ],
+        [
+          0.1532,
+          0.0475
+        ]
+      ],
+      "ct": {
+        "min": 153,
+        "max": 500
+      }
+    },
+    "streaming": {
+      "renderer": true,
+      "proxy": true
+    }
+  },
+  "config": {
+    "archetype": "sultanbulb",
+    "function": "mixed",
+    "direction": "omnidirectional",
+    "startup": {
+      "mode": "safety",
+      "configured": true
+    }
+  },
+  "uniqueid": "00:17:88:01:08:e3:8c:bd-0b",
+  "swversion": "1.76.6",
+  "swconfigid": "598716A0",
+  "productid": "Philips-LCA003-1-A19ECLv6"
+};
+
 export const getLights = {
   "6": {
     "state": {
@@ -208,215 +279,25 @@ export const getLights = {
     "swversion": "1.50.2_r30933",
     "swconfigid": "949259E6",
     "productid": "3241-3127-7871-LS00"
-  },
-  "10": {
-    "state": {
-      "on": false,
-      "bri": 165,
-      "hue": 8418,
-      "sat": 140,
-      "effect": "none",
-      "xy": [
-        0.4573,
-        0.41
-      ],
-      "ct": 366,
-      "alert": "select",
-      "colormode": "ct",
-      "mode": "homeautomation",
-      "reachable": false
-    },
-    "swupdate": {
-      "state": "noupdates",
-      "lastinstall": "2020-12-23T19:53:53"
-    },
-    "type": "Extended color light",
-    "name": "Hue play 2",
-    "modelid": "LCT024",
-    "manufacturername": "Signify Netherlands B.V.",
-    "productname": "Hue play",
-    "capabilities": {
-      "certified": true,
-      "control": {
-        "mindimlevel": 100,
-        "maxlumen": 540,
-        "colorgamuttype": "C",
-        "colorgamut": [
-          [
-            0.6915,
-            0.3083
-          ],
-          [
-            0.17,
-            0.7
-          ],
-          [
-            0.1532,
-            0.0475
-          ]
-        ],
-        "ct": {
-          "min": 153,
-          "max": 500
-        }
-      },
-      "streaming": {
-        "renderer": true,
-        "proxy": true
-      }
-    },
-    "config": {
-      "archetype": "hueplay",
-      "function": "decorative",
-      "direction": "upwards",
-      "startup": {
-        "mode": "safety",
-        "configured": true
-      }
-    },
-    "uniqueid": "00:17:88:01:06:d4:3e:b5-0b",
-    "swversion": "1.50.2_r30933",
-    "swconfigid": "949259E6",
-    "productid": "3241-3127-7871-LS00"
-  },
-  "11": {
-    "state": {
-      "on": true,
-      "bri": 254,
-      "hue": 48786,
-      "sat": 126,
-      "effect": "none",
-      "xy": [
-        0.2921,
-        0.2253
-      ],
-      "ct": 153,
-      "alert": "select",
-      "colormode": "xy",
-      "mode": "homeautomation",
-      "reachable": true
-    },
-    "swupdate": {
-      "state": "noupdates",
-      "lastinstall": "2020-12-27T19:41:58"
-    },
-    "type": "Extended color light",
-    "name": "Living Room Color 2",
-    "modelid": "LCA003",
-    "manufacturername": "Signify Netherlands B.V.",
-    "productname": "Hue color Lamp",
-    "capabilities": {
-      "certified": true,
-      "control": {
-        "mindimlevel": 200,
-        "maxlumen": 800,
-        "colorgamuttype": "C",
-        "colorgamut": [
-          [
-            0.6915,
-            0.3083
-          ],
-          [
-            0.17,
-            0.7
-          ],
-          [
-            0.1532,
-            0.0475
-          ]
-        ],
-        "ct": {
-          "min": 153,
-          "max": 500
-        }
-      },
-      "streaming": {
-        "renderer": true,
-        "proxy": true
-      }
-    },
-    "config": {
-      "archetype": "sultanbulb",
-      "function": "mixed",
-      "direction": "omnidirectional",
-      "startup": {
-        "mode": "safety",
-        "configured": true
-      }
-    },
-    "uniqueid": "00:17:88:01:08:dd:9c:5e-0b",
-    "swversion": "1.65.11_hB798F2",
-    "swconfigid": "4A7D1A15",
-    "productid": "Philips-LCA003-1-A19ECLv6"
-  },
-  "12": {
-    "state": {
-      "on": true,
-      "bri": 254,
-      "hue": 6204,
-      "sat": 197,
-      "effect": "none",
-      "xy": [
-        0.5237,
-        0.3973
-      ],
-      "ct": 493,
-      "alert": "select",
-      "colormode": "xy",
-      "mode": "homeautomation",
-      "reachable": true
-    },
-    "swupdate": {
-      "state": "noupdates",
-      "lastinstall": "2020-12-27T19:41:49"
-    },
-    "type": "Extended color light",
-    "name": "Living Room Color 1",
-    "modelid": "LCA003",
-    "manufacturername": "Signify Netherlands B.V.",
-    "productname": "Hue color Lamp",
-    "capabilities": {
-      "certified": true,
-      "control": {
-        "mindimlevel": 200,
-        "maxlumen": 800,
-        "colorgamuttype": "C",
-        "colorgamut": [
-          [
-            0.6915,
-            0.3083
-          ],
-          [
-            0.17,
-            0.7
-          ],
-          [
-            0.1532,
-            0.0475
-          ]
-        ],
-        "ct": {
-          "min": 153,
-          "max": 500
-        }
-      },
-      "streaming": {
-        "renderer": true,
-        "proxy": true
-      }
-    },
-    "config": {
-      "archetype": "sultanbulb",
-      "function": "mixed",
-      "direction": "omnidirectional",
-      "startup": {
-        "mode": "safety",
-        "configured": true
-      }
-    },
-    "uniqueid": "00:17:88:01:08:e3:8c:bd-0b",
-    "swversion": "1.65.11_hB798F2",
-    "swconfigid": "4A7D1A15",
-    "productid": "Philips-LCA003-1-A19ECLv6"
   }
 }
+
+export const setName = [{
+  "success": {
+      "/lights/12/name": "Living Room Color 1"
+  }
+}];
+
+export const setState = [{
+  "success": {
+      "/lights/12/state/on": true
+  }
+}, {
+  "success": {
+      "/lights/12/state/xy": [0.4434, 0.4060]
+  }
+}, {
+  "success": {
+      "/lights/12/state/bri": 254
+  }
+}];

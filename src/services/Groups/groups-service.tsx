@@ -1,9 +1,16 @@
-import { ApiClient } from '../ApiClient/api-client-service';
 import { Light as Group, LightState } from '../../components/Bulb/Bulb';
-import { convertRgbToXy, convertXyBriToRgb } from '../Color/color-service';
+import { convertRgbToXy, convertXyBriToRgb } from '../../utils/color';
+import { ApiClient } from '../ApiClient/api-client-service';
 
 export class GroupsService {
   constructor(private _apiClient: ApiClient) { }
+
+  async getGroupById(id: string): Promise<Group> {
+    return this._apiClient.get(`/groups/${id}`)
+      .then((response: GroupResponse) => {
+          return this.createGroupFromGroupResponse(id, response);
+      });
+  }
 
   async getGroups(): Promise<Array<Group>> {
     return this._apiClient.get('/groups')
@@ -11,13 +18,6 @@ export class GroupsService {
         return Object.keys(response).map(key => {
           return this.createGroupFromGroupResponse(key, response[key]);
         });
-      });
-  }
-
-  async getGroupById(id: string): Promise<Group> {
-    return this._apiClient.get(`/groups/${id}`)
-      .then((response: GroupResponse) => {
-          return this.createGroupFromGroupResponse(id, response);
       });
   }
 

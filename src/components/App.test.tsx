@@ -2,7 +2,7 @@ import { render, screen } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
 import App from './App';
 
-test('renders title \'Hue\'', () => {
+it('renders title \'Hue\'', () => {
   render(
     <BrowserRouter>
       <App />

@@ -1,6 +1,6 @@
 import { Light, LightState } from '../../components/Bulb/Bulb';
+import { convertRgbToXy, convertXyBriToRgb } from '../../utils/color';
 import { ApiClient } from '../ApiClient/api-client-service';
-import { convertRgbToXy, convertXyBriToRgb } from '../Color/color-service';
 
 export class LightsService {
   constructor(private _apiClient: ApiClient) { }

@@ -1,3 +1,33 @@
+export const getGroupById = {
+  "name": "Living Room",
+  "lights": [
+    "11",
+    "12"
+  ],
+  "sensors": [],
+  "type": "Room",
+  "state": {
+    "all_on": true,
+    "any_on": true
+  },
+  "recycle": false,
+  "class": "Bedroom",
+  "action": {
+    "on": true,
+    "bri": 234,
+    "hue": 8597,
+    "sat": 121,
+    "effect": "none",
+    "xy": [
+      0.4452,
+      0.4068
+    ],
+    "ct": 343,
+    "alert": "select",
+    "colormode": "xy"
+  }
+};
+
 export const getGroups = {
   "1": {
     "name": "Bedroom",
@@ -86,4 +116,24 @@ export const getGroups = {
       "colormode": "ct"
     }
   }
-}
+};
+
+export const setName = [{
+  "success": {
+    "/groups/2/name": "Living Room"
+  }
+}];
+
+export const setState = [{
+  "success": {
+    "/groups/2/action/on": true
+  }
+}, {
+  "success": {
+    "/groups/2/action/bri": 254
+  }
+}, {
+  "success": {
+    "/groups/2/action/xy": [0.4442, 0.4064]
+  }
+}]
