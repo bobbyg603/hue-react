@@ -1,5 +1,6 @@
 import React, { ChangeEvent } from 'react';
 import { convertHexToRgb, convertRgbToHex } from '../../utils/color';
+import { debounce } from '../../utils/debounce';
 import './Bulb.scss';
 
 export interface Light {
@@ -35,33 +36,33 @@ export interface BulbProps extends Light {
 const Bulb: React.FC<BulbProps> = (props: BulbProps) => {
   const { onNameChange, onStateChange } = props;
 
-  const handleNameChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleNameChange = debounce((e: ChangeEvent<HTMLInputElement>) => {
     onNameChange(e.target.value);
-  };
+  }, 1000);
 
-  const handleBrightnessChange = async (e: ChangeEvent<HTMLInputElement>) => {
+  const handleBrightnessChange = debounce((e: ChangeEvent<HTMLInputElement>) => {
     const brightness = parseInt(e.target.value);
     onStateChange({
       ...props.state,
       brightness
     });
-  };
+  }, 100);
 
-  const handleColorChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleColorChange = debounce((e: ChangeEvent<HTMLInputElement>) => {
     const color = convertHexToRgb(e.target.value);
     onStateChange({
       ...props.state,
       color
     });
-  };
+  }, 100);
 
-  const handleOnOffChange = () => {
+  const handleOnOffChange = debounce(() => {
     const on = !props.state.on;
     onStateChange({
       ...props.state,
       on
     });
-  };
+  }, 100);
 
   const { r, g, b } = props.state.color;
   const color = convertRgbToHex(r, g, b);

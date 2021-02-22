@@ -36,10 +36,6 @@ export function convertRgbToHex(r: number, g: number, b: number): string {
     return `#${rgbHex(r, g, b)}`;
 }
 
-export function convertRgbaToCssString(r: number, g: number, b: number, a: number): string {
-    return `rgba(${r}, ${g}, ${b}, ${a})`;
-}
-
 export function convertHexToRgb(hex: string): LightColor {
     const { red, green, blue } = hexRgb(hex);
     const color = { r: red, g: green, b: blue };

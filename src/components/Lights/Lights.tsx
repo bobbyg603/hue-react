@@ -3,7 +3,6 @@ import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import { Link } from 'react-router-dom';
 import { LightsService } from '../../services/Lights/lights-service';
-import { debounce } from '../../utils/debounce';
 import Bulb, { Light, LightSize, LightState } from '../Bulb/Bulb';
 import './Lights.css';
 
@@ -15,9 +14,6 @@ export interface LightsProps {
 const Lights: React.FC<LightsProps> = (props: LightsProps) => {
   const [lights, setLights] = useState([] as Array<Light>);
   const [refresh, setRefresh] = useState(0);
-
-  const debouncedSetName = debounce((id, name) => props.lightsService.setName(id, name), 100);
-  const debouncedSetState = debounce((id, state) => props.lightsService.setState(id, state), 100);
 
   useEffect(() => {
     if (!props.id) {
@@ -34,12 +30,12 @@ const Lights: React.FC<LightsProps> = (props: LightsProps) => {
   }, [props.id, props.lightsService, refresh]);
 
   const handleNameChange = async (id: string, name: string) => {
-    await debouncedSetName(id, name);
+    await props.lightsService.setName(id, name);
     setRefresh(refresh + 1);
   };
 
   const handleStateChange = async (id: string, state: LightState) => {
-    await debouncedSetState(id, state);
+    await props.lightsService.setState(id, state);
     setRefresh(refresh + 1);
   };
 

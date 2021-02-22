@@ -1,6 +1,7 @@
 import { fireEvent, render, screen } from '@testing-library/react';
 import React from 'react';
 import Bulb, { BulbProps, LightSize } from './Bulb';
+import * as util from '../../utils/debounce';
 
 describe('<Bulb />', () => {
   let props: BulbProps;
@@ -21,7 +22,9 @@ describe('<Bulb />', () => {
       size: LightSize.medium,
       onNameChange: jest.fn(),
       onStateChange: jest.fn()
-    };  
+    };
+
+    (util.debounce as any) = jest.fn().mockImplementation((func, wait) => func);
   });
 
   it('should mount', () => {
@@ -30,6 +33,30 @@ describe('<Bulb />', () => {
     const bulb = screen.getByTestId('Bulb');
  
     expect(bulb).toBeInTheDocument();
+  });
+
+  it('should debounce handleNameChange with a 1000 ms timer', () => {
+    render(<Bulb {...props} />);
+
+    expect((util.debounce as any).mock.calls[0][1]).toBe(1000);
+  });
+
+  it('should debounce handleBrightnessChange with a 100 ms timer', () => {
+    render(<Bulb {...props} />);
+
+    expect((util.debounce as any).mock.calls[1][1]).toBe(100);
+  });
+
+  it('should debounce handleColorChange with a 100 ms timer', () => {
+    render(<Bulb {...props} />);
+
+    expect((util.debounce as any).mock.calls[2][1]).toBe(100);
+  });
+
+  it('should debounce handleOnOffChange with a 100 ms timer', () => {
+    render(<Bulb {...props} />);
+
+    expect((util.debounce as any).mock.calls[3][1]).toBe(100);
   });
 
   it('should set bulb fill to value converted from light color', () => {

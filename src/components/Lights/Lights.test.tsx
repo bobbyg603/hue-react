@@ -3,7 +3,6 @@ import Adapter from '@wojtekmaj/enzyme-adapter-react-17';
 import { configure, mount } from 'enzyme';
 import React from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
-import * as util from '../../utils/debounce';
 import Lights from './Lights';
 
 configure({ adapter: new Adapter() });
@@ -52,8 +51,6 @@ describe('<Lights />', () => {
     lightsService.getLights.mockResolvedValue(fakeLights);
     lightsService.getLightById.mockResolvedValue(fakeLights[0]);
     id = fakeLights[0].id;
-
-    (util.debounce as any) = jest.fn().mockImplementation((func, wait) => func);
   });
 
   it('it should mount', async () => {
@@ -129,13 +126,6 @@ describe('<Lights />', () => {
       });
     });
 
-    it('should call debounce with func and wait', () => {
-      expect(util.debounce).toHaveBeenCalledWith(
-        expect.any(Function),
-        100
-      );
-    });
-
     it('should call setName with id and name', async () => {
       const bulb = wrapper.update().find('Bulb');
 
@@ -174,13 +164,6 @@ describe('<Lights />', () => {
           </Router>
         );
       });
-    });
-
-    it('should call debounce with func and wait', () => {
-      expect(util.debounce).toHaveBeenCalledWith(
-        expect.any(Function),
-        100
-      );
     });
 
     it('should call setName with id and name', async () => {
